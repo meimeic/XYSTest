@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XYS.Patient", "XYS.Patient\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XYS", "XYS\XYS.csproj", "{054AC4A6-7DD9-4336-9683-2F38687E08F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XYS.His.Security", "XYS.His.Security\XYS.His.Security.csproj", "{82256DEC-DC39-41FD-9AB8-8CED966A47E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{054AC4A6-7DD9-4336-9683-2F38687E08F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{054AC4A6-7DD9-4336-9683-2F38687E08F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{054AC4A6-7DD9-4336-9683-2F38687E08F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82256DEC-DC39-41FD-9AB8-8CED966A47E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82256DEC-DC39-41FD-9AB8-8CED966A47E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82256DEC-DC39-41FD-9AB8-8CED966A47E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82256DEC-DC39-41FD-9AB8-8CED966A47E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

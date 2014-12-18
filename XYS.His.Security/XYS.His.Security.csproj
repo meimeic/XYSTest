@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7AE372F-49F4-4589-866E-4C3A10333B82}</ProjectGuid>
+    <ProjectGuid>{82256DEC-DC39-41FD-9AB8-8CED966A47E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XYS.His</RootNamespace>
-    <AssemblyName>XYS.His</AssemblyName>
+    <RootNamespace>XYS.His.Security</RootNamespace>
+    <AssemblyName>XYS.His.Security</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,22 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XYS.Core\XYS.Core.csproj">
-      <Project>{73127995-4b1c-429f-9a3b-57cbdb2c2804}</Project>
-      <Name>XYS.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XYS\XYS.csproj">
-      <Project>{054ac4a6-7dd9-4336-9683-2f38687e08f8}</Project>
-      <Name>XYS</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="His.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
