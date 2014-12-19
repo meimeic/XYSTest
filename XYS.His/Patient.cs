@@ -13,6 +13,7 @@ namespace XYS.His
        }
        static class PatientModel : PersonModel
        {
+           private string _pid;
 
        }
        public bool update()
