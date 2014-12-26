@@ -42,7 +42,8 @@
     <Compile Include="Class1.cs" />
     <Compile Include="His\ICharge.cs" />
     <Compile Include="His\IPatient.cs" />
-    <Compile Include="His\IRegist.cs" />
+    <Compile Include="His\IPay.cs" />
+    <Compile Include="His\IRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
