@@ -6,7 +6,7 @@ namespace XYS
 {
     public enum Sex
     {
-        male,female
+        male=1,female
     }
     public enum AgeUnit
     {
