@@ -44,9 +44,7 @@
     <Compile Include="His\IPatient.cs" />
     <Compile Include="His\IPay.cs" />
     <Compile Include="His\IRegister.cs" />
-    <Compile Include="His\ISearchCharge.cs" />
-    <Compile Include="His\ISearchPatient.cs" />
-    <Compile Include="His\PatientModel.cs" />
+    <Compile Include="His\ISearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

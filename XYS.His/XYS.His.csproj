@@ -40,7 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Patient.cs" />
+    <Compile Include="Common\IPatientInfoSearch.cs" />
+    <Compile Include="Common\SuperPatient.cs" />
+    <Compile Include="Hospital\HospitalPatientInfoSearch.cs" />
+    <Compile Include="Model\HospitalPatientModel.cs" />
+    <Compile Include="Model\PatientModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,8 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Clinic\" />
-    <Folder Include="Common\" />
-    <Folder Include="Hospital\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
