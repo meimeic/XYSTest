@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using XYS.His.Common;
 using XYS.His.Model;
+using XYS.Core;
 namespace XYS.His.Hospital
 {
     public class HospitalPatientInfoSearch:IPatientInfoSearch
     {
-        private string _pid;
-        private string _cid;
-
         public PatientModel GetPatientInfo()
         {
             return null;
@@ -30,6 +28,19 @@ namespace XYS.His.Hospital
         private string GetPID(string CID)
         {
             return null;
+        }
+
+        public List<PersonModel> PatientInfoSearch(PatientInfoQueryType queryType, Core.SearchArgument argument)
+        {
+            throw new NotImplementedException();
+        }
+
+        public event PatientInfoQueryHandler PatientInfoQueryEvent;
+
+
+        public Core.SearchType MyType
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

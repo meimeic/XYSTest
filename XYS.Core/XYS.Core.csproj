@@ -39,7 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="SearchArgument.cs" />
+    <Compile Include="SearchType.cs" />
     <Compile Include="His\ICharge.cs" />
     <Compile Include="His\IPatient.cs" />
     <Compile Include="His\IPay.cs" />
