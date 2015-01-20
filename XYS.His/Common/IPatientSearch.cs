@@ -16,7 +16,7 @@ namespace XYS.His.Common
     {
 
     }
-    public interface IPatientInfoSearch : ISearch
+    public interface IPatientSearch : ISearch
     {
         List<PersonModel> PatientInfoSearch(PatientInfoQueryType queryType, SearchArgument argument); 
         event PatientInfoQueryHandler PatientInfoQueryEvent;

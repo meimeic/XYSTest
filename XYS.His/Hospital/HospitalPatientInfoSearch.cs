@@ -7,7 +7,7 @@ using XYS.His.Model;
 using XYS.Core;
 namespace XYS.His.Hospital
 {
-    public class HospitalPatientInfoSearch:IPatientInfoSearch
+    public class HospitalPatientInfoSearch:IPatientSearch
     {
         public PatientModel GetPatientInfo()
         {
