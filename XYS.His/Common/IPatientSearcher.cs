@@ -16,9 +16,10 @@ namespace XYS.His.Common
     {
 
     }
-    public interface IPatientSearch : ISearch
+    public interface IPatientSearcher : ISearch
     {
-        List<PersonModel> PatientInfoSearch(PatientInfoQueryType queryType, SearchArgument argument); 
+        List<PersonModel> getPatientInfo(SearchArgument argument);
+        bool isLocalPatient(string pid);
         event PatientInfoQueryHandler PatientInfoQueryEvent;
     }
 }

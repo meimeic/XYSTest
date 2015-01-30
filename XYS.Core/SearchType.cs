@@ -39,12 +39,9 @@ namespace XYS.Core
         {
             get { return this._searchTypeDisplayName; }
         }
-        public readonly static SearchType Non = new SearchType(int.MaxValue, "NONE", "不存在");
-        public readonly static SearchType PatientInfoSearch = new SearchType(10, "PatientInfoSearch", "病人信息查询");
-        public readonly static SearchType ClinicSearchType = new SearchType(100, "ClinicSearchType", "门诊查询");
-        public readonly static SearchType HospitalSearchType = new SearchType(100000, "HospitalSearchType", "住院查询");
-        public readonly static SearchType HospitalPatientInfoSearch = new SearchType(101000, "HospitalPatientInfoSearch", "住院病人信息查询");
-        public readonly static SearchType All = new SearchType(int.MinValue, "ALL", "所有查询");
+        public readonly static SearchType Non = new SearchType(int.MinValue, "NONE", "不存在");
+        public readonly static SearchType PatientSearch = new SearchType(10000, "PatientSearch", "病人查询");
+        public readonly static SearchType All = new SearchType(int.MaxValue, "ALL", "所有查询");
 
     }
 }

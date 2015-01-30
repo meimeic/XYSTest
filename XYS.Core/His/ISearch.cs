@@ -8,6 +8,6 @@ namespace XYS.Core.His
     public interface ISearch
     {
         string Name { get; }
-        SearchType MyType { get; }
+        SearchType SearchCategory { get; }
     }
 }
