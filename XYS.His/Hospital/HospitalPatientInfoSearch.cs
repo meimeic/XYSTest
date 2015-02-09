@@ -5,6 +5,7 @@ using System.Text;
 using XYS.His.Common;
 using XYS.His.Model;
 using XYS.Core;
+using XYS.Core.His;
 namespace XYS.His.Hospital
 {
     public class HospitalPatientInfoSearch:IPatientSearcher

@@ -6,11 +6,11 @@ using XYS.Core.His;
 using XYS.Core;
 namespace XYS.His.Common
 {
-    public class ClinicPateintSearcher:IPatientSearcher
+    public class PateintSearcher:IPatientSearcher
     {
         private string _name;
         private SearchType _category;
-        public ClinicPateintSearcher()
+        public PateintSearcher()
         {
             this._name = "门诊病人查询器";
             this._category = SearchType.PatientSearch;
@@ -24,7 +24,6 @@ namespace XYS.His.Common
         {
             throw new NotImplementedException();
         }
-
         public bool isLocalPatient(string pid)
         {
             throw new NotImplementedException();

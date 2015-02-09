@@ -40,8 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Common\IPatientSearcher.cs" />
-    <Compile Include="Common\ClinicPateintSearcher.cs" />
+    <Compile Include="Common\PateintSearcher.cs" />
     <Compile Include="Common\PatientInfoSearchArgument.cs" />
     <Compile Include="Common\SuperPatient.cs" />
     <Compile Include="Hospital\HospitalPatientInfoSearch.cs" />

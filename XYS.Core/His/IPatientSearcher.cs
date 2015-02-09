@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using XYS.Core.His;
-using XYS.His.Model;
 using XYS.Core;
-namespace XYS.His.Common
+namespace XYS.Core.His
 {
-    public enum PatientInfoQueryType
-    {
-        PID=1,CID,BaseInfo,Name
-    }
     public delegate void PatientInfoQueryHandler(object sender,PatientInfoQueryEventArgs e);
     public class PatientInfoQueryEventArgs:EventArgs
     {
