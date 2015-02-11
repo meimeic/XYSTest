@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XYS.Core.His
 {
-    interface IPay
+   public interface IPay
     {
     }
 }
