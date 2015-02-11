@@ -6,20 +6,23 @@ using XYS.Core;
 using XYS;
 namespace XYS.His.Common
 {
-    public sealed class PatientInfoSearchArgument:SearchArgument
+    public sealed class PIDSearchArgument:SearchArgument
     {
-        private string _cid;
-        private string _name;
-        private Sex _sex;
-        private Age _age;
-        public PatientInfoSearchArgument()
+        private string _pid;
+        public PIDSearchArgument()
+            :base("病案号参数",100L)
         {
-            this._age = new Age();
         }
-        public string CID
+        public PIDSearchArgument(string pid)
+            : base("病案号参数", 100L)
         {
-            get { return this._cid; }
-            set { this._cid = value; }
+            this._pid = pid;
+        }
+
+        public string PID
+        {
+            get { return this._pid; }
+            set { this._pid = value; }
         }
         public string Name
         {

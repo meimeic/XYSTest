@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XYS.DB.PatientInfo
+namespace XYS.DB.Self
 {
-    public class PatMasterIndex
+    public class CardSecurity
     {
     }
 }

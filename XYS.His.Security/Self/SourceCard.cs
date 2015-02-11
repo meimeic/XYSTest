@@ -16,6 +16,23 @@ namespace XYS.His.Security.Self
     }
     public class SourceCard
     {
-
+        private CardType _cardType;
+        private string _cardNo;
+        private string _checkNo;
+        public CardType MyType
+        {
+            set { this._cardType = value; }
+            get { return this._cardType; }
+        }
+        public string CardNo
+        {
+            set { this._cardNo = value; }
+            get { return this._cardNo; }
+        }
+        public string CheckNo
+        {
+            set { this._checkNo = value; }
+            get { return this._checkNo; }
+        }
     }
 }

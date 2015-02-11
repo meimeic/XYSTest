@@ -7,8 +7,8 @@
     <ProjectGuid>{B516287B-3E17-41C8-A4D6-D9782E9B6C79}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XYS.DB</RootNamespace>
-    <AssemblyName>XYS.DB</AssemblyName>
+    <RootNamespace>XYS.DAL</RootNamespace>
+    <AssemblyName>XYS.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="PatientInfo\PatMasterIndex.cs" />
+    <Compile Include="Self\CardSecurity.cs" />
+    <Compile Include="Self\PatMasterIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
