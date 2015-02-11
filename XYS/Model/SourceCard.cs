@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XYS.His.Security.Self
+namespace XYS.Model
 {
 
     public enum CardType

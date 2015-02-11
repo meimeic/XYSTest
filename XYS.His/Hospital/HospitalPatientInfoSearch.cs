@@ -31,13 +31,7 @@ namespace XYS.His.Hospital
             return null;
         }
 
-        public List<PersonModel> PatientInfoSearch(PatientInfoQueryType queryType, Core.SearchArgument argument)
-        {
-            throw new NotImplementedException();
-        }
-
         public event PatientInfoQueryHandler PatientInfoQueryEvent;
-
 
         public Core.SearchType MyType
         {

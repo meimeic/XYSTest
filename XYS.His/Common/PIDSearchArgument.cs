@@ -24,20 +24,5 @@ namespace XYS.His.Common
             get { return this._pid; }
             set { this._pid = value; }
         }
-        public string Name
-        {
-            get { return this._name; }
-            set { this._name = value; }
-        }
-        public Age Ager
-        {
-            get { return this._age; }
-            set { this._age = value; }
-        }
-        public Sex Gender
-        {
-            get { return this._sex; }
-            set { this._sex = value; }
-        }
     }
 }

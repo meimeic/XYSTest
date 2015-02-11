@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using XYS;
+using XYS.Model;
 namespace XYS.His.Model
 {
     public class PatientModel:PersonModel

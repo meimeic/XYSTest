@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using XYS.Core.His;
 using XYS.Core;
+using XYS.Model;
 namespace XYS.His.Common
 {
     public class PateintSearcher:IPatientSearcher

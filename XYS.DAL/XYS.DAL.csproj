@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,7 +44,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Self\CardSecurity.cs" />
     <Compile Include="Self\PatMasterIndex.cs" />
+    <Compile Include="Utility\DbHelperOleDb.cs" />
+    <Compile Include="Utility\DbHelperSQL.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XYS\XYS.csproj">
+      <Project>{054ac4a6-7dd9-4336-9683-2f38687e08f8}</Project>
+      <Name>XYS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
