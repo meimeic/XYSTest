@@ -6,6 +6,7 @@ using XYS.His.Common;
 using XYS.His.Model;
 using XYS.Core;
 using XYS.Core.His;
+using XYS;
 namespace XYS.His.Hospital
 {
     public class HospitalPatientInfoSearch:IPatientSearcher
@@ -33,7 +34,7 @@ namespace XYS.His.Hospital
 
         public event PatientInfoQueryHandler PatientInfoQueryEvent;
 
-        public Core.SearchType MyType
+        public SearchType MyType
         {
             get { throw new NotImplementedException(); }
         }
