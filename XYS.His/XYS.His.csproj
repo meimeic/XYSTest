@@ -54,6 +54,10 @@
       <Project>{73127995-4b1c-429f-9a3b-57cbdb2c2804}</Project>
       <Name>XYS.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XYS.DAL\XYS.DAL.csproj">
+      <Project>{f163d3b1-1fc8-4bea-b5a0-49398f27b90e}</Project>
+      <Name>XYS.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XYS\XYS.csproj">
       <Project>{054ac4a6-7dd9-4336-9683-2f38687e08f8}</Project>
       <Name>XYS</Name>

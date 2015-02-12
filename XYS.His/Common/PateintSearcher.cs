@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using XYS.Core.His;
-using XYS.Core;
 using XYS.Model;
 namespace XYS.His.Common
 {
@@ -20,19 +19,30 @@ namespace XYS.His.Common
         {
             get {return this._name; }
         }
-
+        public SearchType SearchCategory
+        {
+            get { return this._category; }
+        }
         public List<PersonModel> getPatientInfo(SearchArgument argument)
         {
             throw new NotImplementedException();
+        }
+        protected internal virtual List<PersonModel> getPatientInfoByPID(SearchArgument argument)
+        {
+            PIDSearchArgument PIDArgument = argument as PIDSearchArgument;
+            if (PIDArgument != null)
+            {
+
+            }
+            else
+            {
+                throw new ArgumentNullException("argument");
+            }
         }
         public bool isLocalPatient(string pid)
         {
             throw new NotImplementedException();
         }
         public event PatientInfoQueryHandler PatientInfoQueryEvent;
-        public SearchType SearchCategory
-        {
-            get { return this._category; }
-        }
     }
 }

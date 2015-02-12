@@ -41,9 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="MedicalRecord\IRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Self\CardSecurity.cs" />
-    <Compile Include="Self\PatMasterIndex.cs" />
+    <Compile Include="MedicalRecord\PatMasterIndex.cs" />
     <Compile Include="Utility\DbHelperOleDb.cs" />
     <Compile Include="Utility\DbHelperSQL.cs" />
   </ItemGroup>

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using XYS.Core;
 using XYS.Model;
+using XYS;
 namespace XYS.Core.His
 {
     public delegate void PatientInfoQueryHandler(object sender,PatientInfoQueryEventArgs e);
