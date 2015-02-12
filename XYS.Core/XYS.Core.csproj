@@ -41,8 +41,6 @@
   <ItemGroup>
     <Compile Include="His\IFilter.cs" />
     <Compile Include="His\IPatientSearcher.cs" />
-    <Compile Include="SearchArgument.cs" />
-    <Compile Include="SearchType.cs" />
     <Compile Include="His\ICharge.cs" />
     <Compile Include="His\IPatient.cs" />
     <Compile Include="His\IPay.cs" />

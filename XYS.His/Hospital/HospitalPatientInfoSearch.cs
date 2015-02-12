@@ -37,5 +37,21 @@ namespace XYS.His.Hospital
         {
             get { throw new NotImplementedException(); }
         }
+
+        public List<XYS.Model.PersonModel> getPatientInfo(SearchArgument argument)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isLocalPatient(string pid)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public SearchType SearchCategory
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }
