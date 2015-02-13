@@ -39,8 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Argument\CIDSearchArgument.cs" />
-    <Compile Include="Argument\PIDSearchArgument.cs" />
     <Compile Include="Common\IFilter.cs" />
     <Compile Include="Common\IMedicalRecordSearch.cs" />
     <Compile Include="Common\IPatientSearcher.cs" />

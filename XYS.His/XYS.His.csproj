@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Argument\CIDSearchArgument.cs" />
+    <Compile Include="Argument\PIDSearchArgument.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Model\HospitalPatientModel.cs" />
     <Compile Include="Model\PatientModel.cs" />

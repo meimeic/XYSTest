@@ -113,7 +113,7 @@ namespace XYS.Model
         public Object Clone()
         {
             PersonModel obj = new PersonModel(this._personAge);
-            obj.ModelName = this.ModelName;
+            obj.Name = this.Name;
             obj.Birth = this.Birth;
             obj.Gender = this.Gender;
             obj.Nation = this.Nation;

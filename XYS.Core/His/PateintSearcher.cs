@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using XYS.Model;
 using XYS.Core.Common;
-using XYS.Core.Argument;
 
 namespace XYS.Core.His
 {
@@ -52,19 +51,6 @@ namespace XYS.Core.His
         #endregion
 
         #region 受保护的内部虚方法
-        protected internal virtual List<IResultModel> getPatientInfoByPID(SearchArgument argument)
-        {
-            PIDSearchArgument PIDArgument = argument as PIDSearchArgument;
-            if (PIDArgument != null)
-            {
-
-            }
-            else
-            {
-                throw new ArgumentNullException("argument");
-            }
-        }
-
         #endregion
 
         public event PatientInfoQueryHandler PatientInfoQueryEvent;
