@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using XYS.Model;
 using XYS;
-namespace XYS.Core.His
+namespace XYS.Core.Common
 {
     public delegate void PatientInfoQueryHandler(object sender,PatientInfoQueryEventArgs e);
     public class PatientInfoQueryEventArgs:EventArgs
@@ -13,7 +11,7 @@ namespace XYS.Core.His
     }
     public interface IPatientSearcher : ISearch
     {
-        List<PersonModel> getPatientInfo(SearchArgument argument);
+        List<IResultModel> getPatientInfo(SearchArgument argument);
         bool isLocalPatient(string pid);
         event PatientInfoQueryHandler PatientInfoQueryEvent;
     }

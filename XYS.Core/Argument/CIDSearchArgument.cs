@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using XYS;
-namespace XYS.His.Common
+namespace XYS.Core.Argument
 {
     public class CIDSearchArgument:SearchArgument
     {

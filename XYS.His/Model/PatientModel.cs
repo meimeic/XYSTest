@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using XYS.Model;
+﻿using XYS.Model;
+
 namespace XYS.His.Model
 {
     public class PatientModel:PersonModel

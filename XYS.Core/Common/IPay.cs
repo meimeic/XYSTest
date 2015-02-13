@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XYS.Core.His
+namespace XYS.Core.Common
 {
-    public interface IFilter
+   public interface IPay
     {
     }
 }

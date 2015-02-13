@@ -39,16 +39,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="His\IFilter.cs" />
-    <Compile Include="His\IPatientSearcher.cs" />
-    <Compile Include="His\ICharge.cs" />
-    <Compile Include="His\IPatient.cs" />
-    <Compile Include="His\IPay.cs" />
-    <Compile Include="His\IRegister.cs" />
-    <Compile Include="His\ISearch.cs" />
+    <Compile Include="Argument\CIDSearchArgument.cs" />
+    <Compile Include="Argument\PIDSearchArgument.cs" />
+    <Compile Include="Common\IFilter.cs" />
+    <Compile Include="Common\IMedicalRecordSearch.cs" />
+    <Compile Include="Common\IPatientSearcher.cs" />
+    <Compile Include="Common\ICharge.cs" />
+    <Compile Include="Common\IPatient.cs" />
+    <Compile Include="Common\IPay.cs" />
+    <Compile Include="Common\IRegister.cs" />
+    <Compile Include="Common\ISearch.cs" />
+    <Compile Include="His\PateintSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="His\Clinic\" />
+    <Folder Include="His\Hospital\" />
     <Folder Include="Lis\" />
   </ItemGroup>
   <ItemGroup>

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XYS.DAL.MedicalRecord
+namespace XYS.Core.Common
 {
-    public class IRecord
+    public interface IFilter
     {
     }
 }

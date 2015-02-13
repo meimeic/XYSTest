@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-namespace XYS.Core.His
+using XYS.Core;
+namespace XYS.Core.Common
 {
-    public interface IPatient
+    public interface ISearch
     {
         string Name { get; }
-        void Query(ISearch search);
-        ISearch Searcher { get; }
+        SearchType SearchCategory { get; }
     }
 }
