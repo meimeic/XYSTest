@@ -25,7 +25,7 @@ namespace XYS.His.Model
             get { return this._modelName; }
         }
 
-        public long Value
+        public long ModelValue
         {
             get { return this._value; }
         }

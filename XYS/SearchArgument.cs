@@ -12,7 +12,7 @@ namespace XYS
         protected internal SearchArgument()
         {
             this._value = long.MaxValue;
-            this._name = "不存在的查询参数";
+            this._name = "NULL";
         }
         protected internal SearchArgument(string name, long value)
         {

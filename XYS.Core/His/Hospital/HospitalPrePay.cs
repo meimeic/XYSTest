@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-namespace XYS.Common
+using XYS.Common;
+namespace XYS.Core.His.Hospital
 {
-   public interface IMedicalRecordSearch:ISearch
+    public abstract class HospitalPrePay:IPay
     {
+
     }
 }

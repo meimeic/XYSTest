@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 
 using XYS.Model;
-using XYS.Core.Common;
+using XYS.Common;
 
-namespace XYS.Core.His
+namespace XYS.His
 {
     public class PateintSearcher:IPatientSearcher
     {
@@ -12,7 +12,7 @@ namespace XYS.Core.His
 
         private string _name;
         private SearchType _category;
-
+        private long _value;
         #endregion
 
         #region 公共构造方法
@@ -35,7 +35,10 @@ namespace XYS.Core.His
         {
             get { return this._category; }
         }
-
+        public long Value
+        {
+            get { return this._value; }
+        }
         #endregion
 
         #region 实现IPatientSearcher接口方法
@@ -54,5 +57,6 @@ namespace XYS.Core.His
         #endregion
 
         public event PatientInfoQueryHandler PatientInfoQueryEvent;
+
     }
 }

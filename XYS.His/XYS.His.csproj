@@ -43,7 +43,6 @@
     <Compile Include="Argument\PIDSearchArgument.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Model\HospitalPatientModel.cs" />
-    <Compile Include="Model\PatientModel.cs" />
     <Compile Include="Model\ResultPatModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
