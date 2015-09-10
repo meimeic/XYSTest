@@ -10,7 +10,7 @@ namespace XYS.Utility.DB
 {
     public abstract class DbHelperSQL
     {
-        public static string connectionstring = "";
+        private static string connectionstring = ConfigurationManager.ConnectionStrings["LisMSSQLConnectionString"].ConnectionString.ToString();
         public DbHelperSQL()
         { }
         public static bool ColumnExsits(string tableName, string columnName)

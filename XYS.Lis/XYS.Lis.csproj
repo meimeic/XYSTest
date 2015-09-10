@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FastReport, Version=2013.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\FastReports\FastReport.Net Demo\FastReport.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -38,11 +42,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Model\ReportInfoModel.cs" />
+    <Compile Include="DAL\ReportFormDAL.cs" />
+    <Compile Include="DAL\ReportItemDAL.cs" />
+    <Compile Include="DAL\RFGraphDataDAL.cs" />
+    <Compile Include="LisReport.cs" />
+    <Compile Include="Model\ReportFormModel.cs" />
     <Compile Include="Model\ReportItemModel.cs" />
+    <Compile Include="Model\RFGraphDataModel.cs" />
+    <Compile Include="Model\TestItemModel.cs" />
+    <Compile Include="PDFManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportManager.cs" />
+    <Compile Include="Section\Fish.cs" />
+    <Compile Include="Utility\IMGTools.cs" />
+    <Compile Include="Utility\PUser.cs" />
+    <Compile Include="Utility\XMLTools.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XYS.DAL\XYS.DAL.csproj">
+      <Project>{f163d3b1-1fc8-4bea-b5a0-49398f27b90e}</Project>
+      <Name>XYS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XYS.Utility\XYS.Utility.csproj">
+      <Project>{0ed1c5dd-2a67-4069-a1aa-385e14fbd07c}</Project>
+      <Name>XYS.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XYS\XYS.csproj">
       <Project>{054ac4a6-7dd9-4336-9683-2f38687e08f8}</Project>
       <Name>XYS</Name>

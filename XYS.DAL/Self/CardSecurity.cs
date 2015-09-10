@@ -9,7 +9,7 @@ namespace XYS.DAL.Self
     {
         public static bool IsLegal(SourceCard sc)
         {
-
+            return true;
         }
     }
 }

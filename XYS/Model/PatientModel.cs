@@ -6,6 +6,7 @@
         private string _clinicType;
         private string _bedNo;
         private string _deptName;
+        private int _visitTimes;
         public PatientModel()
         { }
         public string PID
@@ -13,7 +14,7 @@
             set { this._patientID = value; }
             get { return this._patientID; }
         }
-        public string ClinicType
+        public string ClinicTypeName
         {
             set { this._clinicType = value; }
             get { return this._clinicType; }
@@ -27,6 +28,11 @@
         {
             get { return this._deptName; }
             set { this._deptName = value; }
+        }
+        public int VisitTimes
+        {
+            get { return this._visitTimes; }
+            set { this._visitTimes = value; }
         }
     }
 }

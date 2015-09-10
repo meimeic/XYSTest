@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 namespace XYS.Model
 {
-    public enum Sex
-    {
-        male=1,female
-    }
     public enum AgeUnit
     {
-        year,month,day
+        year = 1, month, day,hour
     }
     public class Age:ICloneable
     {
@@ -66,7 +62,7 @@ namespace XYS.Model
         private string _name;
         private string _birth;
         private string _nation;
-        private Sex _gender;
+        private string _sex;
         private string _CID;
         public PersonModel()
         {
@@ -76,7 +72,7 @@ namespace XYS.Model
         {
             this._personAge = (Age)age.Clone();
         }
-        public string Name
+        public string CName
         {
             get { return this._name; }
             set { this._name = value; }
@@ -91,10 +87,10 @@ namespace XYS.Model
             get { return this._nation; }
             set { this._nation = value; }
         }
-        public Sex Gender
+        public string Sex
         {
-            get { return this._gender; }
-            set { this._gender = value; }
+            get { return this._sex; }
+            set { this._sex = value; }
         }
         public string CID
         {
@@ -113,9 +109,9 @@ namespace XYS.Model
         public Object Clone()
         {
             PersonModel obj = new PersonModel(this._personAge);
-            obj.Name = this.Name;
+            obj.CName = this.CName;
             obj.Birth = this.Birth;
-            obj.Gender = this.Gender;
+            obj.Sex = this.Sex;
             obj.Nation = this.Nation;
             return obj;
         }

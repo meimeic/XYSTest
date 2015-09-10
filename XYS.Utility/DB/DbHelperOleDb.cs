@@ -14,7 +14,7 @@ namespace XYS.Utility.DB
     public abstract class DbHelperOleDb
     {
         //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
-        public static string connectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString.ToString();
+        public static string connectionString = ConfigurationManager.ConnectionStrings["LisMSSQLConnectionString"].ConnectionString.ToString();
         public DbHelperOleDb()
         {
         }
