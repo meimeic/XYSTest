@@ -12,6 +12,10 @@ using System.IO;
 using System.Xml;
 using XYS.Lis.Utility;
 using XYS.Lis;
+
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+
 namespace ZhTest
 {
     public partial class Form1 : Form
@@ -45,8 +49,6 @@ namespace ZhTest
                 equalFields.Add("sampleno", dr["sampleno"].ToString());
                 rm.InitLisReport(lr, equalFields);
                 pm.GenderPDFReport(lr, "E:\\lis", ds);
-                // lr = rm.GetLisReport(equalFields);
-                //pm.GenderPDFReport(lr, "E:\\lis");
             }
         }
         private static void ConvertDataSetToXMLFile(DataSet xmlDS, string xmlFile)
@@ -124,7 +126,29 @@ namespace ZhTest
             PDFManager pm = new PDFManager();
             LisReport lr = new LisReport();
             Hashtable equalFields = new Hashtable();
-            string sql = "select receivedate,sectionno,testtypeno,sampleno from ReportForm where receivedate='"+dateTimePicker1.Value.ToString("yyyy-MM-dd")+"' and Sectionno in(2,27,28,62,4,17,23,29,34,5,19,20,21,25,30,33,35,63,11)";
+            string sql = "select receivedate,sectionno,testtypeno,sampleno from ReportForm where receivedate='" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' and Sectionno in(4,11,17,23,29,34,5,19,20,21,25,30,33,35,63,18,2,27,28,62)";
+            DataTable dt = DbHelperSQL.Query(sql).Tables["dt"];
+            DataSet ds = pm.GetPrintDataSet("ReportTables.frd");
+            foreach (DataRow dr in dt.Rows)
+            {
+                equalFields.Clear();
+                equalFields.Add("receivedate", (DateTime)dr["receivedate"]);
+                equalFields.Add("sectionno", (int)dr["sectionno"]);
+                equalFields.Add("testtypeno", (int)dr["testtypeno"]);
+                equalFields.Add("sampleno", dr["sampleno"].ToString());
+                rm.InitLisReport(lr, equalFields);
+                pm.GenderPDFReport(lr, LisConfig.GetPdfRootPath(), ds);
+            }
+            GenderRemoteFile(dateTimePicker1.Value);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ReportManager rm = new ReportManager();
+            PDFManager pm = new PDFManager();
+            LisReport lr = new LisReport();
+            Hashtable equalFields = new Hashtable();
+            string sql = "select receivedate,sectionno,testtypeno,sampleno from ReportForm where SerialNo='" + textBox2.Text.Trim() + "'";
             DataTable dt = DbHelperSQL.Query(sql).Tables["dt"];
             DataSet ds = pm.GetPrintDataSet("ReportTables.frd");
             foreach (DataRow dr in dt.Rows)
@@ -140,27 +164,38 @@ namespace ZhTest
                 //pm.GenderPDFReport(lr, "E:\\lis");
             }
         }
-
-        private void button4_Click(object sender, EventArgs e)
+        private void GenderRemoteFile(DateTime dt)
         {
-            ReportManager rm = new ReportManager();
-            PDFManager pm = new PDFManager();
-            LisReport lr = new LisReport();
-            Hashtable equalFields = new Hashtable();
-            string sql = "select top 1 receivedate,sectionno,testtypeno,sampleno from ReportForm where SerialNo='" + textBox2.Text.Trim() + "'";
-            DataTable dt = DbHelperSQL.Query(sql).Tables["dt"];
-            DataSet ds = pm.GetPrintDataSet("ReportTables.frd");
-            foreach (DataRow dr in dt.Rows)
+            string directoryPath = Path.Combine(LisConfig.GetPdfRootPath(), DateTime.Now.ToString("yyyy-MM-dd"));
+            DirectoryInfo di = new DirectoryInfo(directoryPath);
+            DirectoryInfo[] sectionDirectories = di.GetDirectories();
+            string[] filePaths;
+            int sectionNo;
+            foreach(DirectoryInfo d in sectionDirectories)
             {
-                equalFields.Clear();
-                equalFields.Add("receivedate", (DateTime)dr["receivedate"]);
-                equalFields.Add("sectionno", (int)dr["sectionno"]);
-                equalFields.Add("testtypeno", (int)dr["testtypeno"]);
-                equalFields.Add("sampleno", dr["sampleno"].ToString());
-                rm.InitLisReport(lr, equalFields);
-                pm.GenderPDFReport(lr, "E:\\lis", ds);
-                // lr = rm.GetLisReport(equalFields);
-                //pm.GenderPDFReport(lr, "E:\\lis");
+                if (int.TryParse(d.Name, out sectionNo))
+                {
+                    filePaths = Directory.GetFiles(d.FullName);
+                    CombinePDF(filePaths,dt,sectionNo);
+                }
+            }
+        }
+        private void CombinePDF(string[] filePaths,DateTime dt,int sectionNo)
+        {
+            PdfDocument outPdf = new PdfDocument();
+            for (int i = 0; i < filePaths.Length; i++)
+            {
+                PdfDocument one = PdfReader.Open(filePaths[i], PdfDocumentOpenMode.Import);
+                CopyPages(one, outPdf);
+            }
+            string remotePath = Path.Combine(LisConfig.GetCombineRootPath(), LisConfig.GetSectionsName(sectionNo), dt.ToString("yyyy-MM-dd") + ".pdf");
+            outPdf.Save(remotePath);
+        }
+        private void CopyPages(PdfDocument from, PdfDocument to)
+        {
+            for (int i = 0; i < from.PageCount; i++)
+            {
+                to.AddPage(from.Pages[i]);
             }
         }
     }

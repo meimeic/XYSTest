@@ -89,7 +89,7 @@ namespace XYS.Lis.DAL
         //获得sql语句
         private string GenderSQL(Hashtable equalFields)
         {
-            string sql = "select receivedate,sectionno,testtypeno,sampleno,t.CName as testitemname,t.EName as itemename,ISNULL(r.ReportDesc,'') + ISNULL(CONVERT(VARCHAR(50),r.ReportValue),'') as reportvalueall,resultstatus,t.unit as unit,refrange,disporder,r.itemno as itemno,secretgrade,paritemno,t.prec as precision2 from reportitem as r left outer join testitem as t on r.itemno=t.itemno";
+            string sql = "select receivedate,sectionno,testtypeno,sampleno,t.CName as testitemname,t.EName as itemename,ISNULL(r.ReportDesc,'') + ISNULL(CONVERT(VARCHAR(50),r.ReportValue),'') as reportvalueall,resultstatus,r.unit as unit1,t.unit as unit2,refrange,disporder,r.itemno as itemno,secretgrade,paritemno,t.prec as precision2 from reportitem as r left outer join testitem as t on r.itemno=t.itemno";
             return sql + GetSQLWhere(equalFields);
         }
         //获得where语句
@@ -140,7 +140,14 @@ namespace XYS.Lis.DAL
             rim.ItemEName=dr["itemename"]==DBNull.Value?"":dr["itemename"].ToString();
             rim.ItemResult = dr["reportvalueall"] == DBNull.Value ? "" : dr["reportvalueall"].ToString();
             rim.ResultStatus = dr["resultstatus"] == DBNull.Value ? "" : dr["resultstatus"].ToString();
-            rim.ItemUnit = dr["unit"] == DBNull.Value ? "" : dr["unit"].ToString();
+            if (dr["unit1"] != DBNull.Value && !dr["unit1"].ToString().Equals(""))
+            {
+                rim.ItemUnit = dr["unit1"].ToString();
+            }
+            else
+            {
+                rim.ItemUnit = dr["unit2"] == DBNull.Value ? "" : dr["unit2"].ToString();
+            }
             rim.RefRange = dr["refrange"] == DBNull.Value ? "" : dr["refrange"].ToString();
             rim.DispNo=(int)dr["disporder"];
             rim.Precision = (int)dr["precision2"];

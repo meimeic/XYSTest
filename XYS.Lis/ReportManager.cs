@@ -130,10 +130,10 @@ namespace XYS.Lis
             //设置显示序号，打印模板号
             switch (lr.ReportInfo.SectionNo)
             {
-          //临检组
+                //临检组
                 case 2:
                 case 27:
-                   //包含人工分类
+                    //包含人工分类
                     if (lr.SpecItemsList.Count > 0)
                     {
                         ManItemsOperate(lr.SpecItemsList, lr.SpecItemsTable);
@@ -181,17 +181,16 @@ namespace XYS.Lis
                         }
                     }
                     break;
-          //生化组
+                //生化组
                 case 17:
                 case 23:
                 case 29:
                 case 34:
-                    lr.ReportInfo.Explanation = lr.ReportInfo.FormMemo;
                     lr.PrintModelNo = 400;
                     lr.OrderNo = 2000;
                     break;
-          //免疫组
-                    //Tecan150  特殊
+                //免疫组
+                //Tecan150  特殊
                 case 19:
                     if (lr.SpecItemFlag && lr.ReportInfo.SickTypeNo == 2)
                     {
@@ -201,42 +200,48 @@ namespace XYS.Lis
                     lr.ReportInfo.Explanation = lr.ReportInfo.ZDY5;
                     lr.PrintModelNo = 600;
                     break;
-                    //DXI800  大张
+                //DXI800  大张
                 case 20:
-                    //更正说明
-                    lr.ReportInfo.Explanation = lr.ReportInfo.FormMemo;
                     //必须在程序中排序
-                    lr.ReportItemList.Sort();
-                    lr.PrintModelNo = 700;
+                   // lr.ReportItemList.Sort();
+                    lr.PrintModelNo = 610;
                     break;
-                    //spife4000  大张
+                //spife4000  大张
                 case 35:
                     GraphItemsOperate(lr.SpecItemsTable);
-                    lr.PrintModelNo = 750;
+                    lr.PrintModelNo = 620;
                     break;
-                    //其他
+                //免疫SUNRISE
                 case 21:
-                case 30:
-                    lr.ReportInfo.Explanation = lr.ReportInfo.FormMemo;
-                    lr.PrintModelNo = 650;
+                    lr.PrintModelNo = 720;
                     break;
+                //免疫手工
+                case 30:
+                    //必须在程序中排序
+                    // lr.ReportItemList.Sort();
+                    lr.PrintModelNo = 710;
+                    break;
+                //其他
                 case 5:
                 case 25:
                 case 33:
                 case 63:
+                    //更正说明
                     lr.ReportInfo.Explanation = lr.ReportInfo.ZDY5;
-                    lr.PrintModelNo = 650;
+                    lr.PrintModelNo = 700;
                     break;
-                //出凝血组
+            //出凝血组
                 case 4:
                 case 24:
+                    //必须在程序中排序
+                    //lr.ReportItemList.Sort();
                     lr.PrintModelNo = 800;
                     break;
                 //溶血组
                 case 18:
-                    if (lr.ReportItemList.Count > 18)
+                    if (lr.ReportItemList.Count > 14)
                     {
-                        //大张
+                        //溶血大张
                         lr.PrintModelNo = 1000;
                     }
                     else
@@ -251,20 +256,24 @@ namespace XYS.Lis
                     if (lr.ParItemList.Contains(90009044) || lr.ParItemList.Contains(90009045) || lr.ParItemList.Contains(90009046))
                     {
                         lr.PrintModelNo = 1300;
-                        GraphItemsOperate(lr.SpecItemsTable);
                     }
                     //FISH
                     else
                     {
                         lr.PrintModelNo = 1200;
-                        GraphItemsOperate(lr.SpecItemsTable);
                     }
+                    GraphItemsOperate(lr.SpecItemsTable);
                     break;
                 //分子生物
                 case 6:
                     break;
                 //组织配型
                 case 45:
+                    break;
+        //细胞化学
+                case 3:
+                    lr.PrintModelNo = 1400;
+                    GraphItemsOperate(lr.SpecItemsTable);
                     break;
                 default:
                     lr.PrintModelNo = -1;
@@ -337,14 +346,6 @@ namespace XYS.Lis
         //所有项同一处理
         private void CommonItemsOperate(LisReport lr)
         {
-            //foreach (ReportItemModel rim in lr.ReportItemList)
-            //{
-            //    if (!lr.ParItemList.Contains(rim.ParItemNo))
-            //    {
-            //        lr.ParItemList.Add(rim.ParItemNo);
-            //    }
-            //    //
-            //}
             for (int i = lr.ReportItemList.Count - 1; i >= 0; i--)
             {
                 //设置组合编号集合

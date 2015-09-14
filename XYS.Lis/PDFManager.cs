@@ -143,6 +143,10 @@ namespace XYS.Lis
                 case 35:
                     FillGraphReportItem(lr.SpecItemsTable, ds, -1, 4);
                     break;
+                    //细胞化学
+                case 3:
+                    FillGraphReportItem(lr.SpecItemsTable, ds, -1, 5);
+                    break;
             }
             //通用检验项填充
             FillReportItems(lr, ds);
@@ -365,6 +369,11 @@ namespace XYS.Lis
                     dr["DianYong"] = graphItemTable["蛋白电泳"];
                     dr["TuPu"] = graphItemTable["图谱"];
                     break;
+                    //细胞化学
+                case 5:
+                    dr["FISH_Normal"] = graphItemTable["图像1"];
+                    dr["YiChuan_Result"] = graphItemTable["图像2"];
+                    break;
             }
             dt.Rows.Add(dr);
         }
@@ -410,21 +419,29 @@ namespace XYS.Lis
                 case 600:
                     modelName = "mianyi-TECAN150-xiao.frx";
                     break;
-                    //免疫普通小张
-                case 650:
-                    modelName = "mianyi-Common-xiao.frx";
-                    break;
                     //dxi800 免疫大张
-                case 700:
-                    modelName = "mianyi-DXI800-da.frx";
+                case 610:
+                    modelName = "mianyi-DXI800-da-1.frx";
                     break;
                     //Spife 4000 大张
-                case 750:
+                case 620:
                     modelName = "mianyi-SPIFE4000-da.frx";
+                    break;
+                //免疫普通小张
+                case 700:
+                    modelName = "mianyi-Common-xiao.frx";
+                    break;
+               //免疫手工小张
+                case 710:
+                    modelName = "mianyi-shougong-xiao-1.frx";
+                    break;
+               //免疫SUNRISE 小张
+                case 720:
+                    modelName = "mianyi-Sunrise-xiao.frx";
                     break;
                 //出凝血大张
                 case 800:
-                    modelName = "zhixue-Adaption.frx";
+                    modelName = "zhixue-Adaption-1.frx";
                     break;
                 //出凝血小张
                 case 900:
@@ -432,11 +449,11 @@ namespace XYS.Lis
                     break;
                     //溶血大张
                 case 1000:
-                    modelName = "rx-01-2.frx";
+                    modelName = "rongxue-Common-da.frx";
                     break;
                     //溶血小张
                 case 1100:
-                    modelName = "rx-01-1.frx";
+                    modelName = "rongxue-Common-xiao.frx";
                     break;
                     //遗传FISH
                 case 1200:
@@ -445,6 +462,10 @@ namespace XYS.Lis
                     //遗传染色体
                 case 1300:
                     modelName = "yichuan-Ran.frx";
+                    break;
+                    //细胞化学 单图
+                case 1400:
+                    modelName = "zuhua-1image-1.frx";
                     break;
                 default:
                     modelName = "lj-03-1.frx";

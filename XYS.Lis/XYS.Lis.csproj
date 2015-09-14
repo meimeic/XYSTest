@@ -35,6 +35,7 @@
       <HintPath>C:\Program Files (x86)\FastReports\FastReport.Net Demo\FastReport.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -54,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportManager.cs" />
     <Compile Include="Section\Fish.cs" />
+    <Compile Include="Utility\LisConfig.cs" />
     <Compile Include="Utility\IMGTools.cs" />
     <Compile Include="Utility\PUser.cs" />
     <Compile Include="Utility\XMLTools.cs" />
