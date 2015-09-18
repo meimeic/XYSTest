@@ -126,7 +126,7 @@ namespace ZhTest
             PDFManager pm = new PDFManager();
             LisReport lr = new LisReport();
             Hashtable equalFields = new Hashtable();
-            string sql = "select receivedate,sectionno,testtypeno,sampleno from ReportForm where receivedate='" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' and Sectionno in(4,11,17,23,29,34,5,19,20,21,25,30,33,35,63,18,2,27,28,62)";
+            string sql = "select receivedate,sectionno,testtypeno,sampleno from ReportForm where receivedate='" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' and Sectionno in(4,11,14,17,23,29,34,5,19,20,21,25,30,33,35,63,18,2,27,28,62)";
             DataTable dt = DbHelperSQL.Query(sql).Tables["dt"];
             DataSet ds = pm.GetPrintDataSet("ReportTables.frd");
             foreach (DataRow dr in dt.Rows)

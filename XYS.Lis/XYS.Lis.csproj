@@ -43,10 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DAL\GSCommonItemDAL.cs" />
+    <Compile Include="DAL\GSReportItemDAL.cs" />
     <Compile Include="DAL\ReportFormDAL.cs" />
     <Compile Include="DAL\ReportItemDAL.cs" />
     <Compile Include="DAL\RFGraphDataDAL.cs" />
     <Compile Include="LisReport.cs" />
+    <Compile Include="Model\GSCommonItemModel.cs" />
+    <Compile Include="Model\GSReportItemModel.cs" />
     <Compile Include="Model\ReportFormModel.cs" />
     <Compile Include="Model\ReportItemModel.cs" />
     <Compile Include="Model\RFGraphDataModel.cs" />
@@ -55,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportManager.cs" />
     <Compile Include="Section\Fish.cs" />
+    <Compile Include="Section\XingTai.cs" />
     <Compile Include="Utility\LisConfig.cs" />
     <Compile Include="Utility\IMGTools.cs" />
     <Compile Include="Utility\PUser.cs" />

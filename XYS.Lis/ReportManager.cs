@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using XYS.Lis.Model;
 using XYS.Lis.DAL;
 
-
+using XYS.Lis.Section;
 namespace XYS.Lis
 {
     public class ReportManager
@@ -14,6 +14,8 @@ namespace XYS.Lis
         private ReportFormDAL _rfDAL;
         private ReportItemDAL _riDAL;
         private RFGraphDataDAL _graphDAL;
+        private GSCommonItemDAL _gsCommonDAL;
+        private GSReportItemDAL _gsItemDAL;
         
         #endregion
 
@@ -24,6 +26,8 @@ namespace XYS.Lis
             this._graphDAL = new RFGraphDataDAL();
             this._rfDAL = new ReportFormDAL();
             this._riDAL = new ReportItemDAL();
+            this._gsCommonDAL = new GSCommonItemDAL();
+            this._gsItemDAL = new GSReportItemDAL();
         }
         
         #endregion
@@ -127,7 +131,7 @@ namespace XYS.Lis
         {
             CommonItemsOperate(lr);
 
-            //设置显示序号，打印模板号
+            //设置显打印模板号,特殊项处理
             switch (lr.ReportInfo.SectionNo)
             {
                 //临检组
@@ -139,7 +143,6 @@ namespace XYS.Lis
                         ManItemsOperate(lr.SpecItemsList, lr.SpecItemsTable);
                     }
                     lr.PrintModelNo = 100;
-                    lr.OrderNo = 10;
                     break;
                 case 28:
                 case 62:
@@ -148,37 +151,11 @@ namespace XYS.Lis
                         GraphItemsOperate(lr.SpecItemsTable);
                         //uf1000i尿大张
                         lr.PrintModelNo = 200;
-                        lr.OrderNo = 1000;
                     }
+                    //uf1000
                     else
                     {
-                        //小张
                         lr.PrintModelNo = 300;
-                        switch (lr.ReportInfo.SampleTypeNo)
-                        {
-                            //尿(尿常规等)
-                            case 108:
-                                lr.OrderNo = 1000;
-                                break;
-                            //血(c反应蛋白)
-                            case 175:
-                                lr.OrderNo = 100;
-                                break;
-                            //便(便常规等)
-                            case 117:
-                                lr.OrderNo = 1100;
-                                break;
-                            //脑脊液()---特殊与生化同属于一个序列
-                            case 115:
-                                lr.OrderNo = 2000;
-                                break;
-                            //胸水
-                            case 4:
-                                break;
-                            default:
-                                lr.OrderNo = 1999;
-                                break;
-                        }
                     }
                     break;
                 //生化组
@@ -187,10 +164,9 @@ namespace XYS.Lis
                 case 29:
                 case 34:
                     lr.PrintModelNo = 400;
-                    lr.OrderNo = 2000;
                     break;
                 //免疫组
-                //Tecan150  特殊
+                //免疫Tecan150  特殊
                 case 19:
                     if (lr.SpecItemFlag && lr.ReportInfo.SickTypeNo == 2)
                     {
@@ -200,13 +176,13 @@ namespace XYS.Lis
                     lr.ReportInfo.Explanation = lr.ReportInfo.ZDY5;
                     lr.PrintModelNo = 600;
                     break;
-                //DXI800  大张
+                //免疫DXI800  大张
                 case 20:
-                    //必须在程序中排序
-                   // lr.ReportItemList.Sort();
+                    //若采用代码类型模板则必须在程序中排序
+                    // lr.ReportItemList.Sort();
                     lr.PrintModelNo = 610;
                     break;
-                //spife4000  大张
+                //免疫spife4000  大张
                 case 35:
                     GraphItemsOperate(lr.SpecItemsTable);
                     lr.PrintModelNo = 620;
@@ -217,11 +193,15 @@ namespace XYS.Lis
                     break;
                 //免疫手工
                 case 30:
-                    //必须在程序中排序
+                    //若采用代码类型模板则必须在程序中排序
                     // lr.ReportItemList.Sort();
                     lr.PrintModelNo = 710;
                     break;
-                //其他
+                //免疫细胞培养
+                case 14:
+                    lr.PrintModelNo = 730;
+                    break;
+                //免疫其他
                 case 5:
                 case 25:
                 case 33:
@@ -230,10 +210,10 @@ namespace XYS.Lis
                     lr.ReportInfo.Explanation = lr.ReportInfo.ZDY5;
                     lr.PrintModelNo = 700;
                     break;
-            //出凝血组
+                //出凝血组
                 case 4:
                 case 24:
-                    //必须在程序中排序
+                    //若采用代码类型模板则必须在程序中排序
                     //lr.ReportItemList.Sort();
                     lr.PrintModelNo = 800;
                     break;
@@ -246,7 +226,7 @@ namespace XYS.Lis
                     }
                     else
                     {
-                        //小张
+                        //溶血小张
                         lr.PrintModelNo = 1100;
                     }
                     break;
@@ -255,14 +235,17 @@ namespace XYS.Lis
                     //染色体
                     if (lr.ParItemList.Contains(90009044) || lr.ParItemList.Contains(90009045) || lr.ParItemList.Contains(90009046))
                     {
+                        GraphItemsOperate(lr.SpecItemsTable);
                         lr.PrintModelNo = 1300;
                     }
                     //FISH
                     else
                     {
+                        GraphItemsOperate(lr.SpecItemsTable);
+                        //加载正常图片
+                        FISHItemsOperate(lr.ParItemList[0], lr.SpecItemsTable);
                         lr.PrintModelNo = 1200;
                     }
-                    GraphItemsOperate(lr.SpecItemsTable);
                     break;
                 //分子生物
                 case 6:
@@ -270,20 +253,31 @@ namespace XYS.Lis
                 //组织配型
                 case 45:
                     break;
-        //细胞化学
+                //细胞化学
                 case 3:
-                    lr.PrintModelNo = 1400;
+                    if (lr.ParItemList.Contains(90004154) || lr.ParItemList.Contains(90004169))
+                    {
+                        lr.PrintModelNo = 1400;
+                    }
+                    else if (lr.ParItemList.Contains(90004171))
+                    {
+                        lr.PrintModelNo = 1420;
+                    }
+                    else if (lr.ParItemList.Contains(90008551) || lr.ParItemList.Contains(90008552) || lr.ParItemList.Contains(90008553) || lr.ParItemList.Contains(50006842) || lr.ParItemList.Contains(50006846))
+                    {
+                        lr.PrintModelNo = 1430;
+                    }
                     GraphItemsOperate(lr.SpecItemsTable);
+                    break;
+                //细胞形态
+                case 39:
+                    XingTaiItemsOperate(lr);
+                    lr.PrintModelNo = 1500;
                     break;
                 default:
                     lr.PrintModelNo = -1;
-                    lr.OrderNo = 100000;
                     break;
             }
-        }
-        //设置免疫TECAN150 相关项
-        private void TECAN150Operate(LisReport lr)
-        {
         }
         //设置血常规人工分类项
         private void ManItemsOperate(List<ReportItemModel> rimList, Hashtable manItemTable)
@@ -442,6 +436,100 @@ namespace XYS.Lis
             //RFGraphDataDAL rfdal = new RFGraphDataDAL();
            // rfdal.SearchTable(graphItemsTable);
             this._graphDAL.SearchTable(graphItemsTable);
+        }
+        private void XingTaiItemsOperate(LisReport lr)
+        {
+            GSCommonItemsOperate(lr);
+            List<ReportItemModel> results = this._gsItemDAL.SearchList(lr.SpecItemsTable);
+            GSReportItemsOperate(lr.SpecItemsTable, results);
+        }
+        private void GSCommonItemsOperate(LisReport lr)
+        {
+            this._gsCommonDAL.SearchList(lr.SpecItemsTable, lr.SpecItemsList);
+        }
+        private void GSReportItemsOperate(Hashtable table,List<ReportItemModel> rimList)
+        {
+            GSReportItemModel gsItem;
+            foreach(ReportItemModel rim in rimList)
+            {
+                gsItem=rim as GSReportItemModel;
+                if(gsItem==null)
+                {
+                    continue;
+                }
+                switch (gsItem.ItemNo)
+                {
+                        //诊断意见
+                    case 43:
+                        table.Add("DiagnosticOpinion",gsItem.ItemResult);
+                        break;
+                        //形态描述
+                    case 44:
+                        table.Add("MorphologicalDesc", gsItem.ReportText);
+                        break;
+                        //图像1
+                    case 46:
+                        table.Add("image1", GetGSImage(gsItem.FilePath));
+                        break;
+                    //图像2
+                    case 47:
+                          table.Add("image2", GetGSImage(gsItem.FilePath));
+                        break;
+                }
+            }
+        }
+        private byte[] GetGSImage(string imagePath)
+        {
+            return XingTai.GetImage(imagePath);
+        }
+        private void FISHItemsOperate(int parItemNo,Hashtable ht)
+        {
+            ht.Add("FISH_Normal", Fish.GetNormalImage(parItemNo));
+        }
+        private void SetPrintOrder(LisReport lr)
+        {
+            switch (lr.ReportInfo.SectionNo)
+            {
+                //血常规
+                case 2:
+                case 27:
+                    lr.OrderNo = 19000;
+                    break;
+                case 28:
+                case 62:
+                    switch (lr.ReportInfo.SampleTypeNo)
+                    {
+                        //尿(尿常规等)
+                        case 108:
+                            lr.OrderNo = 29200;
+                            break;
+                        //血(c反应蛋白)
+                        case 175:
+                            lr.OrderNo = 100;
+                            break;
+                        //便(便常规等)
+                        case 117:
+                            lr.OrderNo = 29300;
+                            break;
+                        //脑脊液()---特殊与生化同属于一个序列
+                        case 115:
+                            lr.OrderNo = 29400;
+                            break;
+                        //胸水
+                        case 4:
+                            lr.OrderNo = 29500;
+                            break;
+                        default:
+                            lr.OrderNo = 29999;
+                            break;
+                    }
+                    break;
+                case 17:
+                case 23:
+                case 29:
+                case 34:
+                    break;
+            }
         }
         #endregion
     }

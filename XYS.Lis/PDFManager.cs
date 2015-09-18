@@ -39,7 +39,8 @@ namespace XYS.Lis
         }
         public void GenderPDFReport(LisReport lr, string rootPath)
         {
-            DataSet ds = CreateDataSet("ReportTables.frd");
+            //DataSet ds = CreateDataSet("ReportTables.frd");
+            DataSet ds = GetPrintDataSet("ReportTables.frd");
             FillDataSet(lr, ds);
             Report report = new Report();
             //获取模板
@@ -122,7 +123,7 @@ namespace XYS.Lis
                     //尿大张
                     if (lr.ParItemList.Contains(90008562))
                     {
-                        FillGraphReportItem(lr.SpecItemsTable, ds, -1, 1);
+                        FillGraphReportItem(lr.SpecItemsTable, ds, 1);
                     }
                     break;
                 //遗传
@@ -131,21 +132,26 @@ namespace XYS.Lis
                     if (lr.ParItemList.Contains(90009044) || lr.ParItemList.Contains(90009045) || lr.ParItemList.Contains(90009046))
                     {
                         FillRanReportItem(lr.SpecItemsList, ds, lr.ReportInfo);
-                        FillGraphReportItem(lr.SpecItemsTable, ds, -1, 3);
+                        FillGraphReportItem(lr.SpecItemsTable, ds, 3);
                     }
                     //fish
                     else
                     {
-                        FillGraphReportItem(lr.SpecItemsTable, ds, lr.ParItemList[0], 2);
+                        FillGraphReportItem(lr.SpecItemsTable, ds, 2);
                     }
                     break;
                     //Spife4000 血清蛋白电泳
                 case 35:
-                    FillGraphReportItem(lr.SpecItemsTable, ds, -1, 4);
+                    FillGraphReportItem(lr.SpecItemsTable, ds, 4);
                     break;
                     //细胞化学
                 case 3:
-                    FillGraphReportItem(lr.SpecItemsTable, ds, -1, 5);
+                    FillGraphReportItem(lr.SpecItemsTable, ds, 5);
+                    break;
+                    //细胞形态
+                case 39:
+                    FillGSReportItems(ds, lr.SpecItemsTable);
+                    FillGSCommonItems(ds, lr.SpecItemsList, lr.ReportInfo);
                     break;
             }
             //通用检验项填充
@@ -298,7 +304,6 @@ namespace XYS.Lis
             dr["Item9296"] = manItemTable["Item9296"];
             dr["Item9297"] = manItemTable["Item9297"];
             dr["Item9301"] = manItemTable["Item9301"];
-
             dt.Rows.Add(dr);
         }
         //遗传染色体检验项填充
@@ -334,7 +339,7 @@ namespace XYS.Lis
             dt.Rows.Add(dr);
         }
         //图像检验项填充
-        private void FillGraphReportItem(Hashtable graphItemTable, DataSet ds, int parItemNo, int graphOwner)
+        private void FillGraphReportItem(Hashtable graphItemTable, DataSet ds,int graphOwner)
         {
             DataTable dt = ds.Tables["RFGraphData"];
             DataRow dr = dt.NewRow();
@@ -357,7 +362,7 @@ namespace XYS.Lis
                     break;
                 //FISH图
                 case 2:
-                    dr["FISH_Normal"] = Fish.GetNormalImage(parItemNo);
+                    dr["FISH_Normal"] = graphItemTable["FISH_Normal"];
                     dr["YiChuan_Result"] = graphItemTable["图像1"];
                     break;
                 //染色体图
@@ -369,11 +374,50 @@ namespace XYS.Lis
                     dr["DianYong"] = graphItemTable["蛋白电泳"];
                     dr["TuPu"] = graphItemTable["图谱"];
                     break;
-                    //细胞化学
+                    //细胞化学 图像
                 case 5:
                     dr["FISH_Normal"] = graphItemTable["图像1"];
                     dr["YiChuan_Result"] = graphItemTable["图像2"];
                     break;
+            }
+            dt.Rows.Add(dr);
+        }
+        private void FillGSReportItems(DataSet ds,Hashtable table)
+        {
+            DataTable dt = ds.Tables["GSReportResult"];
+            DataRow dr = dt.NewRow();
+            //通用项填充
+            dr["ReceiveDate"] = table["receivedate"];
+            dr["SectionNo"] = table["sectionno"];
+            dr["TestTypeNo"] = table["testtypeno"];
+            dr["SampleNo"] = table["sampleno"];
+            dr["MorphologicalDesc"] = table["MorphologicalDesc"];
+            dr["DiagnosticOpinion"] = table["DiagnosticOpinion"];
+            dr["Image1"] = table["image1"];
+            dr["Image2"] = table["image2"];
+            dt.Rows.Add(dr);
+        }
+        private void FillGSCommonItems(DataSet ds, List<ReportItemModel> rimList, ReportFormModel rfm)
+        {
+            DataTable dt = ds.Tables["GSReportItem"];
+            DataRow dr = dt.NewRow();
+            dr["ReceiveDate"] = rfm.ReceiveDate;
+            dr["SectionNo"] = rfm.SectionNo;
+            dr["TestTypeNo"] = rfm.TestTypeNo;
+            dr["SampleNo"] = rfm.SampleNo;
+            GSCommonItemModel gsItem;
+            string columnName;
+            foreach (ReportItemModel rim in rimList)
+            {
+                gsItem = rim as GSCommonItemModel;
+                if (gsItem == null)
+                {
+                    continue;
+                }
+                columnName = "i" + gsItem.ItemNo.ToString() + "_" + "xue";
+                dr[columnName] = gsItem.XueValue;
+                columnName = "i" + gsItem.ItemNo.ToString() + "_" + "gs";
+                dr[columnName] = gsItem.GSValue;
             }
             dt.Rows.Add(dr);
         }
@@ -395,35 +439,35 @@ namespace XYS.Lis
             string modelName;
             switch (lr.PrintModelNo)
             {
-                    //血常规
+                //血常规
                 case 100:
                     modelName = "lj-xuechanggui.frx";
                     break;
-                    //尿大张
+                //尿大张
                 case 200:
                     modelName = "lj-niaodazhang.frx";
                     break;
-                    //尿小张
+                //尿小张
                 case 300:
                     modelName = "lj-niaoxiaozhang.frx";
                     break;
-                    //生化大张
+                //生化大张
                 case 400:
                     modelName = "shenghua-Common-da.frx";
                     break;
-                    //生化小张
+                //生化小张
                 case 500:
                     modelName = "shenghua-01-1.frx";
                     break;
-                    //tecan150免疫小张
+                //tecan150免疫小张
                 case 600:
                     modelName = "mianyi-TECAN150-xiao.frx";
                     break;
-                    //dxi800 免疫大张
+                //dxi800 免疫大张
                 case 610:
                     modelName = "mianyi-DXI800-da-1.frx";
                     break;
-                    //Spife 4000 大张
+                //Spife 4000 大张
                 case 620:
                     modelName = "mianyi-SPIFE4000-da.frx";
                     break;
@@ -431,13 +475,17 @@ namespace XYS.Lis
                 case 700:
                     modelName = "mianyi-Common-xiao.frx";
                     break;
-               //免疫手工小张
+                //免疫手工小张
                 case 710:
                     modelName = "mianyi-shougong-xiao-1.frx";
                     break;
-               //免疫SUNRISE 小张
+                //免疫SUNRISE 小张
                 case 720:
                     modelName = "mianyi-Sunrise-xiao.frx";
+                    break;
+                    //免疫细胞培养
+                case 730:
+                    modelName = "mianyi-xibaopeiyang-xiao.frx";
                     break;
                 //出凝血大张
                 case 800:
@@ -447,25 +495,37 @@ namespace XYS.Lis
                 case 900:
                     modelName = "zhixue-01-1.frx";
                     break;
-                    //溶血大张
+                //溶血大张
                 case 1000:
                     modelName = "rongxue-Common-da.frx";
                     break;
-                    //溶血小张
+                //溶血小张
                 case 1100:
                     modelName = "rongxue-Common-xiao.frx";
                     break;
-                    //遗传FISH
+                //遗传FISH
                 case 1200:
                     modelName = "yichuan-FISH.frx";
                     break;
-                    //遗传染色体
+                //遗传染色体
                 case 1300:
                     modelName = "yichuan-Ran.frx";
                     break;
-                    //细胞化学 单图
+                //细胞化学 单图
                 case 1400:
                     modelName = "zuhua-1image-1.frx";
+                    break;
+                //细胞化学 单图2
+                case 1420:
+                    modelName = "zuhua-1image-2.frx";
+                    break;
+                    //细胞化学 多图
+                case 1430:
+                    modelName = "zuhua-2image-1.frx";
+                    break;
+                //细胞形态
+                case 1500:
+                    modelName = "xingtai-01-1.frx";
                     break;
                 default:
                     modelName = "lj-03-1.frx";

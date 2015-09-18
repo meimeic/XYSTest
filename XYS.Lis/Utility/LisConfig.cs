@@ -10,6 +10,7 @@ namespace XYS.Lis.Utility
         private static readonly string COMBINEROOTPATH = ConfigurationManager.AppSettings["CombineRootPath"];
         private static readonly string COMBINESECTIONS = ConfigurationManager.AppSettings["CombineSections"];
         private static readonly string PDFFILEROOTPATH = ConfigurationManager.AppSettings["PdfFileRootPath"];
+        private static readonly string GSRemotePath = ConfigurationManager.AppSettings["GSRemotePath"];
         private static readonly Hashtable COMBINESECTIONTABLE = new Hashtable();
         public static string GetPdfRootPath()
         {
@@ -18,6 +19,10 @@ namespace XYS.Lis.Utility
         public static string GetCombineRootPath()
         {
             return LisConfig.COMBINEROOTPATH;
+        }
+        public static string GetGSRemotePath()
+        {
+            return LisConfig.GSRemotePath;
         }
         public static string GetSectionsName(int sectionNo)
         {

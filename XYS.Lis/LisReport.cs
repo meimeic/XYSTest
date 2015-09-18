@@ -93,6 +93,8 @@ namespace XYS.Lis
            this._specItemsTable.Clear();
            this._specItemsList.Clear();
            this._specItemFlag = false;
+           this._orderNo = 0;
+           this._printModelNo = -1;
        }
         #endregion
     }
