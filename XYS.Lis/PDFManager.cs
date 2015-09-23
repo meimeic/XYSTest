@@ -12,6 +12,11 @@ using System.Text;
 using FastReport;
 using FastReport.Export.Pdf;
 
+using XYS.Lis.Enum;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+
+
 namespace XYS.Lis
 {
     public class PDFManager
@@ -69,8 +74,32 @@ namespace XYS.Lis
             report.RegisterData(ds);
             report.Prepare();
             PDFExport export = new PDFExport();
-            report.Export(export, fileFullName);
-            report.Dispose();
+            //这里针对像流式这种生成PDF之后还要处理的情况。
+            if (AfterCreatPDF(lr.ReportInfo.SectionNo))
+            {
+                string linshi = rootPath + "\\liushi\\linshi.pdf";
+                report.Export(export, linshi);
+                report.Dispose();
+                List<MyMergePdf> lm = new List<MyMergePdf>();
+                lm.Add(new MyMergePdf { Name = linshi });
+                string liushiPDFname = getliushiname(lr.ReportInfo.SerialNo, lr.ReportInfo.SampleNo, rootPath);
+                if (liushiPDFname != "")
+                {
+                    try
+                    {
+                        int page = Convert.ToInt32(liushiPDFname.Split('_')[2].Split('.')[0]);
+                        lm.Add(new MyMergePdf { Name = rootPath + "\\liushi\\" + liushiPDFname, PagCount = page });
+                    }
+                    catch { }
+                }
+                mergePDFFiles(lm, fileFullName);
+            }
+            //一般情况。
+            else
+            {
+                report.Export(export, fileFullName);
+                report.Dispose();
+            }
         }
         public void PrintReport(LisReport lr)
         {
@@ -524,8 +553,49 @@ namespace XYS.Lis
                     modelName = "zuhua-2image-1.frx";
                     break;
                 //细胞形态
-                case 1500:
+                case 1450:
                     modelName = "xingtai-01-1.frx";
+                    break;
+                //ReportType.Rt分子生物I脱氧核糖核酸巨细胞病毒脱氧核糖核酸EB病毒=1500
+                case 1500:
+                    modelName = "fs-06-175.frx";
+                    break;
+                case 1510:
+                case 1530:
+                case 1540:
+                case 1520:
+                    modelName = "fs-06-02.frx";
+                    break;
+                //40种，特殊
+                case 1550:
+                    modelName = "fs-40.frx";
+                    break;
+                case 1560:
+                    modelName = "40";
+                    break;
+                case 1570:
+                    modelName = "40";
+                    break;
+                case 1600:
+                    modelName = "ls-1600.frx";
+                    break;
+                case 1610:
+                    modelName = "ls-1610.frx";
+                    break;
+                case 1620:
+                    modelName = "ls-1620.frx";
+                    break;
+                case 1630:
+                    modelName = "ls-1630.frx";
+                    break;
+                case 1640:
+                    modelName = "ls-1640.frx";
+                    break;
+                case 1650:
+                    modelName = "ls-1650.frx";
+                    break;
+                case 1660:
+                    modelName = "ls-1660.frx";
                     break;
                 default:
                     modelName = "lj-03-1.frx";
@@ -730,6 +800,58 @@ namespace XYS.Lis
             {
                 dr[de.Key.ToString()] = de.Value;
             }
+        }
+        private string getliushiname(string SerialNo, string SampleNo, string rootPath)
+        {
+            DirectoryInfo TheFoldercs = new DirectoryInfo(rootPath + "\\liushi\\");
+            foreach (var item in TheFoldercs.GetFiles())
+            {
+                if (item.Name.Contains(SerialNo + "_" + SampleNo))
+                    return item.Name;
+            }
+            //这里要询问一下是否每个都带图
+            return "";
+        }
+
+        private bool AfterCreatPDF(int zuhao)
+        {
+            switch (zuhao)
+            {
+                case 10:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        private void mergePDFFiles(List<MyMergePdf> fileList, string outMergeFile)
+        {
+            PdfReader reader;
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(outMergeFile, FileMode.Create));
+            document.Open();
+            PdfContentByte cb = writer.DirectContent;
+            PdfImportedPage newPage;
+            foreach (MyMergePdf item in fileList)
+            {
+                reader = new PdfReader(item.Name);
+                int iPageNum;
+                if (item.PagCount == 0)
+                {
+                    iPageNum = reader.NumberOfPages;
+                }
+                else
+                {
+                    iPageNum = item.PagCount;
+                }
+                for (int j = 1; j <= iPageNum; j++)
+                {
+                    document.NewPage();
+                    newPage = writer.GetImportedPage(reader, j);
+                    cb.AddTemplate(newPage, 0, 0);
+                }
+            }
+            document.Close();
         }
         
         #endregion

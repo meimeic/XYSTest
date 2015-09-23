@@ -34,6 +34,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\FastReports\FastReport.Net Demo\FastReport.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>I:\XYSTest\ZhTest\bin\Debug\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -48,9 +51,11 @@
     <Compile Include="DAL\ReportFormDAL.cs" />
     <Compile Include="DAL\ReportItemDAL.cs" />
     <Compile Include="DAL\RFGraphDataDAL.cs" />
+    <Compile Include="Enum\LisEnum.cs" />
     <Compile Include="LisReport.cs" />
     <Compile Include="Model\GSCommonItemModel.cs" />
     <Compile Include="Model\GSReportItemModel.cs" />
+    <Compile Include="Model\MyMergePdf.cs" />
     <Compile Include="Model\ReportFormModel.cs" />
     <Compile Include="Model\ReportItemModel.cs" />
     <Compile Include="Model\RFGraphDataModel.cs" />
@@ -58,6 +63,8 @@
     <Compile Include="PDFManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportManager.cs" />
+    <Compile Include="Repository\Normal\XmlNormalConfigurator.cs" />
+    <Compile Include="Section\CommonSection.cs" />
     <Compile Include="Section\Fish.cs" />
     <Compile Include="Section\XingTai.cs" />
     <Compile Include="Utility\LisConfig.cs" />
@@ -79,6 +86,7 @@
       <Name>XYS</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

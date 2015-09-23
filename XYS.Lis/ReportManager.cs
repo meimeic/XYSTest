@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using XYS.Lis.Model;
 using XYS.Lis.DAL;
 
@@ -130,7 +131,7 @@ namespace XYS.Lis
         private void ReportOperate(LisReport lr)
         {
             CommonItemsOperate(lr);
-
+            SetPrintOrder(lr);
             //设置显打印模板号,特殊项处理
             switch (lr.ReportInfo.SectionNo)
             {
@@ -272,7 +273,81 @@ namespace XYS.Lis
                 //细胞形态
                 case 39:
                     XingTaiItemsOperate(lr);
-                    lr.PrintModelNo = 1500;
+                    lr.PrintModelNo = 1450;
+                    break;
+                //流式小组
+                case 10:
+                    #region 模板
+                    List<int> lsdz = new List<int>();
+                    lsdz.Add(90008344);
+                    lsdz.Add(90008345);
+                    lsdz.Add(90008346);
+                    lsdz.Add(90008347);
+                    lsdz.Add(90008348);
+                    lsdz.Add(90008349);
+                    lsdz.Add(90008350);
+                    lsdz.Add(90008351);
+                    lsdz.Add(90009000);
+                    List<int> lsxz = new List<int>();
+                    lsxz.Add(90008352);
+                    List<int> wzzsxz = new List<int>();
+                    wzzsxz.Add(90008358);
+                    wzzsxz.Add(90008354);
+                    wzzsxz.Add(90008472);
+                    wzzsxz.Add(90009200);
+                    wzzsxz.Add(90008469);
+                    List<int> lsdzcl = new List<int>();
+                    lsdzcl.Add(90008890);
+                    lsdzcl.Add(90008889);
+                    lsdzcl.Add(90008477);
+                    lsdzcl.Add(90008359);
+                    lsdzcl.Add(90008360);
+                    lsdzcl.Add(90008361);
+                    lsdzcl.Add(90008362);
+                    List<int> wzjl = new List<int>();
+                    wzjl.Add(90008363);
+                    wzjl.Add(90008365);
+                    wzjl.Add(90008366);
+                    wzjl.Add(90008367);
+                    wzjl.Add(90008892);
+                    wzjl.Add(90008468);
+                    List<int> ema = new List<int>();
+                    ema.Add(90008957);
+                    List<int> vb = new List<int>();
+                    vb.Add(90008356);
+                    #endregion
+                    if (myfenzishengwuliushi(lr.ParItemList, lsdz))
+                    {
+                        lr.PrintModelNo = Convert.ToInt32(Lis.Enum.ReportType.Rt流式_流式大张);
+                        lr.ReportInfo.FormMemo = lr.ReportInfo.FormMemo.Replace(";", "\r\n");
+                    }
+                    if (myfenzishengwuliushi(lr.ParItemList, ema))
+                    {
+                        lr.PrintModelNo = Convert.ToInt32(Lis.Enum.ReportType.Rt流式_EMA);
+                    }
+                    if (myfenzishengwuliushi(lr.ParItemList, vb))
+                    {
+                        lr.PrintModelNo = Convert.ToInt32(Lis.Enum.ReportType.Rt流式_VB);
+                        lr.ReportInfo.FormMemo = lr.ReportInfo.FormMemo.Replace(";", "\r\n");
+                    }
+                    if (myfenzishengwuliushi(lr.ParItemList, lsdzcl))
+                    {
+                        lr.PrintModelNo = Convert.ToInt32(Lis.Enum.ReportType.Rt流式_大张残留);
+                        lr.ReportInfo.FormMemo = lr.ReportInfo.FormMemo.Replace(";", "\r\n");
+                    }
+                    if (myfenzishengwuliushi(lr.ParItemList, wzjl))
+                    {
+                        lr.PrintModelNo = Convert.ToInt32(Lis.Enum.ReportType.Rt流式_文字结论);
+                    }
+                    if (myfenzishengwuliushi(lr.ParItemList, wzzsxz))
+                    {
+                        lr.PrintModelNo = Convert.ToInt32(Lis.Enum.ReportType.Rt流式_文字数字小张);
+                    }
+                    //这个必须在最后，因为有可能先是文字数字小张，然后再包含流式小张
+                    if (myfenzishengwuliushi(lr.ParItemList, lsxz))
+                    {
+                        lr.PrintModelNo = Convert.ToInt32(Lis.Enum.ReportType.Rt流式_流式小张);
+                    }
                     break;
                 default:
                     lr.PrintModelNo = -1;
@@ -490,47 +565,135 @@ namespace XYS.Lis
         {
             switch (lr.ReportInfo.SectionNo)
             {
+                    //形态
+                case 39:
+                    lr.OrderNo = 12000;
+                    break;
+                    //组化
+                case 3:
+                    lr.OrderNo = 14000;
+                    break;
+                case 11:
+                    //染色体
+                    if (lr.ParItemList.Contains(90009044) || lr.ParItemList.Contains(90009045) || lr.ParItemList.Contains(90009046))
+                    {
+                        lr.OrderNo =15000;
+                    }
+                    else
+                    {
+                        lr.OrderNo = 15500;
+                    }
+                    break;
                 //血常规
                 case 2:
                 case 27:
                     lr.OrderNo = 19000;
                     break;
-                case 28:
-                case 62:
-                    switch (lr.ReportInfo.SampleTypeNo)
-                    {
-                        //尿(尿常规等)
-                        case 108:
-                            lr.OrderNo = 29200;
-                            break;
-                        //血(c反应蛋白)
-                        case 175:
-                            lr.OrderNo = 100;
-                            break;
-                        //便(便常规等)
-                        case 117:
-                            lr.OrderNo = 29300;
-                            break;
-                        //脑脊液()---特殊与生化同属于一个序列
-                        case 115:
-                            lr.OrderNo = 29400;
-                            break;
-                        //胸水
-                        case 4:
-                            lr.OrderNo = 29500;
-                            break;
-                        default:
-                            lr.OrderNo = 29999;
-                            break;
-                    }
-                    break;
                 case 17:
                 case 23:
                 case 29:
                 case 34:
+                    List<int> ll=GetAU2700List();
+                    if (HasIntersection(lr.ParItemList, ll))
+                    {
+                        lr.OrderNo = 19500;
+                    }
+                    else
+                    {
+                        SetCommonOrder(lr);
+                    }
+                    break;
+                default:
+                    switch (lr.ReportInfo.SampleTypeNo)
+                    {
+                        //尿(尿常规等)
+                        case 108:
+                            lr.OrderNo = 1100000;
+                            break;
+                        //便(便常规等)
+                        case 117:
+                            lr.OrderNo = 1200000;
+                            break;
+                        //脑脊液()---特殊与生化同属于一个序列
+                        case 115:
+                            lr.OrderNo = 1000000;
+                            break;
+                        //胸水
+                        case 4:
+                        case 5:
+                            lr.OrderNo = 1300000;
+                            break;
+                        default:
+                            SetCommonOrder(lr);
+                            break;
+                    }
                     break;
             }
         }
+        private void SetCommonOrder(LisReport lr)
+        {
+            int preOrder=CommonSection.GetDisplayOrder(lr.ReportInfo.SectionNo);
+            if (preOrder != -1)
+            {
+                int sufOrder = MaxOrder(lr.ParItemList) % 10000;
+                lr.OrderNo = preOrder * 10000 + sufOrder;
+            }
+            else
+            {
+                lr.OrderNo = 0;
+            }
+        }
+        private int MaxOrder(List<int> l)
+        {
+            int result = 0;
+            foreach (int order in l)
+            {
+                if (order > result)
+                {
+                    result = order;
+                }
+            }
+            return result;
+        }
+        private List<int> GetAU2700List()
+        {
+            List<int> l = new List<int>();
+            l.Add(90004316);
+            l.Add(90004368);
+            l.Add(90004369);
+            l.Add(90004370);
+            l.Add(90004379);
+            l.Add(90004380);
+            l.Add(90004381);
+            l.Add(90004321);
+            l.Add(90004324);
+            l.Add(90004377);
+            return l;
+        }
+        private bool HasIntersection(List<int> first,List<int> second)
+        {
+            bool flag = false;
+            IEnumerable<int> result = first.Intersect<int>(second);
+            foreach (int i in result)
+            {
+                flag = true;
+                break;
+            }
+            return flag;
+        }
+        private bool myfenzishengwuliushi(List<int> xiangmu, List<int> muban)
+        {
+            foreach (int item in xiangmu)
+            {
+                bool rs = muban.Contains(item);
+                if (rs == true)
+                {
+                    return rs;
+                }
+            }
+            return false;
+        }
+
         #endregion
     }
 }
